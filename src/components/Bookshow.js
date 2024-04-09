@@ -7,21 +7,22 @@ export default function Bookshow({ book, onDelete, onEdit }) {
   const handleDeleteClick = () => {
     onDelete(book.id);
   };
+  const handleSubmit = (id, newTitle) => {
+    setShowEdit(false);
+    onEdit(id, newTitle);
+  };
   const handleEditClick = () => {
     setShowEdit(!showEdit);
-    console.log(showEdit);
   };
+
   return (
     <div className="book-show actions">
       <button className="delete" onClick={handleDeleteClick}>
         delete
       </button>
       <button onClick={handleEditClick}>edit</button>
-      {showEdit ? (
-        <BookEdit book={book} showEdit={showEdit} onEdit={onEdit} />
-      ) : (
-        book.title
-      )}
+      <img alt="photos" src={`https://picsum.photos/seed/${book.id}/300/200`} />
+      {showEdit ? <BookEdit book={book} onSubmit={handleSubmit} /> : book.title}
     </div>
   );
 }
